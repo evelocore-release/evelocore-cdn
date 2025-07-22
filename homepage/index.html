@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evelocore Private CDN</title>
+    <link rel="icon" href="evelocore-icon-white.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+                        'particle-float': 'particle-float 20s linear infinite',
+                        'fade-in': 'fade-in 0.8s ease-out forwards',
+                        'slide-up': 'slide-up 0.6s ease-out forwards'
+                    },
+                    keyframes: {
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)' },
+                            '50%': { boxShadow: '0 0 30px rgba(99, 102, 241, 0.6)' }
+                        },
+                        'particle-float': {
+                            '0%': { transform: 'translateY(100vh) rotate(0deg)', opacity: '0' },
+                            '10%': { opacity: '1' },
+                            '90%': { opacity: '1' },
+                            '100%': { transform: 'translateY(-100px) rotate(360deg)', opacity: '0' }
+                        },
+                        'fade-in': {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        'slide-up': {
+                            'from': { opacity: '0', transform: 'translateY(40px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-gradient': 'linear-gradient(135deg, #0f0f23 0%, #161b2e 25%, #1a1f3a 50%, #2d3748 100%)',
+                    }
+                } 
+            }
+        }
+    </script>
+    <style>
+        .bg-hero { background: linear-gradient(135deg, #0f0f23 0%, #161b2e 25%, #1a1f3a 50%, #2d3748 100%); }
+        .text-gradient { background: linear-gradient(135deg, #fff 0%, #c7d2fe 50%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass { backdrop-filter: blur(20px); }
+        .glass-card { backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="bg-hero min-h-screen text-white overflow-x-hidden">
+    <!-- Animated Background Particles -->
+    <div class="fixed inset-0 pointer-events-none z-0" id="particles"></div>
+
+    <!-- Header -->
+    <!-- <header class="fixed top-0 w-full h-20 bg-slate-900/90 glass border-b border-white/10 flex items-center justify-between px-4 md:px-8 z-50">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-xl font-bold animate-pulse-glow">
+                E
+            </div>
+            <span class="text-xl md:text-2xl font-bold text-gradient" id="brandName">Evelocore</span>
+        </div>
+        <nav class="hidden md:flex items-center gap-6">
+            <a href="#" class="text-white/80 hover:text-white hover:bg-indigo-500/20 px-4 py-2 rounded-lg transition-all duration-300">Dashboard</a>
+            <a href="#" class="text-white/80 hover:text-white hover:bg-indigo-500/20 px-4 py-2 rounded-lg transition-all duration-300">Storage</a>
+            <a href="#" class="text-white/80 hover:text-white hover:bg-indigo-500/20 px-4 py-2 rounded-lg transition-all duration-300">Settings</a>
+        </nav>
+        <button class="md:hidden text-white p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </header> -->
+
+    <!-- Main Content -->
+    <main class="pt-28 pb-20 min-h-screen flex items-center justify-center px-4 md:px-8">
+        <div class="max-w-6xl w-full text-center">
+            <!-- Hero Section -->
+            <div class="mb-16 opacity-0 animate-fade-in" style="animation-delay: 0.2s;">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-gradient leading-tight" id="appName">
+                    Secure Cloud Storage
+                </h1>
+                <p class="text-lg md:text-xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed" id="description">
+                    Professional-grade cloud storage solution with enterprise security, 
+                    seamless file management, and lightning-fast access to your data anywhere.
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                    <a href="/filemanager" class="animate-pulse-glow group inline-flex items-center gap-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 px-8 py-4 rounded-2xl text-lg font-semibold text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"></path>
+                        </svg>
+                        Open File Manager
+                    </a>
+                    <a href="#features" class="group inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 px-8 py-4 rounded-2xl text-lg font-semibold text-white glass-card hover:-translate-y-1 transition-all duration-300">
+                        <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="features">
+                <div class="group bg-white/5 glass-card border border-white/10 hover:border-indigo-500/30 rounded-3xl p-6 md:p-8 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 opacity-0 animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                        <div class="relative w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-2xl mb-6 animate-float">
+                            🔒
+                        </div>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-white">Enterprise Security</h3>
+                    <p class="text-white/80 leading-relaxed">
+                        Military-grade encryption and advanced security protocols protect your data with zero-knowledge architecture.
+                    </p>
+                </div>
+
+                <div class="group bg-white/5 glass-card border border-white/10 hover:border-indigo-500/30 rounded-3xl p-6 md:p-8 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 opacity-0 animate-slide-up" style="animation-delay: 0.6s;">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-orange-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                        <div class="relative w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center text-2xl mb-6 animate-float-slow">
+                            ⚡
+                        </div>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-white">Lightning Fast</h3>
+                    <p class="text-white/80 leading-relaxed">
+                        Optimized CDN infrastructure ensures rapid file uploads, downloads, and seamless streaming capabilities.
+                    </p>
+                </div>
+
+                <div class="group bg-white/5 glass-card border border-white/10 hover:border-indigo-500/30 rounded-3xl p-6 md:p-8 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 opacity-0 animate-slide-up md:col-span-2 lg:col-span-1" style="animation-delay: 0.8s;">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-green-500/20 to-blue-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                        <div class="relative w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-2xl flex items-center justify-center text-2xl mb-6 animate-float">
+                            🌐
+                        </div>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-4 text-white">Global Access</h3>
+                    <p class="text-white/80 leading-relaxed">
+                        Access your files from anywhere in the world with our distributed network and mobile-first design.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 opacity-0 animate-slide-up" style="animation-delay: 1s;">
+                <div class="text-center">
+                    <div class="text-2xl md:text-4xl font-bold text-gradient mb-2">99.9%</div>
+                    <div class="text-white/60 text-sm md:text-base">Uptime</div>
+                </div>
+                <div class="text-center">
+                    <div id="pingValue" class="text-2xl md:text-4xl font-bold text-gradient mb-2">-</div>
+                    <div class="text-white/60 text-sm md:text-base">Ping</div>
+                </div>
+                <div class="text-center">
+                    <div id="sizeValue" class="text-2xl md:text-4xl font-bold text-gradient mb-2">-</div>
+                    <div class="text-white/60 text-sm md:text-base">Max Size</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl md:text-4xl font-bold text-gradient mb-2">24/7</div>
+                    <div class="text-white/60 text-sm md:text-base">Support</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Status Indicator -->
+    <div class="fixed bottom-4 md:bottom-8 right-4 md:right-8 bg-green-500/20 border border-green-500/40 rounded-xl px-4 py-3 glass-card flex items-center gap-3 text-green-400 text-sm md:text-base z-40">
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <span class="font-medium">System Online</span>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-slate-900/50 glass flex items-center justify-center z-50 opacity-100 transition-opacity duration-500">
+        <div class="text-center">
+            <div class="w-12 h-12 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mb-4 mx-auto"></div>
+            <p class="text-white/80">Loading your workspace...</p>
+        </div>
+    </div>
+
+    <script>
+        let ping = 0
+        const currentTime = new Date().getTime();
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 20 : 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'absolute w-1 h-1 bg-indigo-400/60 rounded-full animate-particle-float';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Load settings from API
+        async function loadSettings() {
+            try {
+                const response = await fetch('/api/settings');
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('Settings loaded:', data.data);
+                    const settings = data.data;
+                    
+                    // Update app name and brand
+                    const appName = settings.appName || 'Secure Cloud Storage';
+                    const description = settings.description || 
+                        'Professional-grade cloud storage solution with enterprise security, seamless file management, and lightning-fast access to your data anywhere.';
+                    
+                    document.getElementById('appName').textContent = appName;
+                    //document.getElementById('brandName').textContent = settings.appName || 'Evelocore';
+                    document.getElementById('description').textContent = description;
+                    
+                    // Update document title
+                    document.title = `${settings.appName || 'Evelocore'} ${settings.version ? 'v' + settings.version : ''}`;
+
+                    ping = new Date().getTime() - currentTime
+                    document.getElementById('pingValue').innerHTML = ping + 'ms';
+                    document.getElementById('sizeValue').innerHTML = settings.fileSizeLimit || '100mb';
+                }
+            } catch (error) {
+                console.error('Failed to load settings:', error);
+                // Keep default values if API fails
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            loadSettings();
+            
+            // Hide loading overlay after a short delay
+            setTimeout(() => {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('button.md\\:hidden');
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', function() {
+                // Add mobile menu functionality here if needed
+                console.log('Mobile menu clicked');
+            });
+        }
+
+        // Add parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.getElementById('particles');
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
+        });
+
+        // Intersection Observer for animation triggers
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animations
+        document.querySelectorAll('.animate-slide-up, .animate-fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
